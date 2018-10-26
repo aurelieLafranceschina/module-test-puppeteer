@@ -61,8 +61,40 @@ describe("Tests basiques", () => {
         const yo = page.$eval('#short_url', el => el.value);
             // on attent que l'élément ".about-contents" soit chargé
             await page.waitForSelector('div.qr-code-container')
-            await page.screenshot({path: './tests/img/url1.png'});
+            await page.screenshot({path: './tests/img/qr-code.png'});
     },timeout)
+
+    test('signUp' , async () => {
+        // charger la page d'accueil
+        await page.goto('http://polr.campus-grenoble.fr')
+       // attendre que l'élément <body> soit chargé
+       await page.waitForSelector('body')
+       // récupérer le contenu de l'élément <body>
+        const html = await page.$eval('body', e => e.innerHTML)
+        // vérifier que dans cet élément Body on trouve "Polr du campus"
+        await page.screenshot({path: './tests/img/basic-home.png'});
+        expect(html).toContain("Polr du campus")
+        // entrer une URL
+        await page.waitForSelector('input[type="url"]')
+        await page.type('input[type="url"]','https://pptr.dev/#?product=Puppeteer&version=v1.7.0&show=outline')
+       
+        // click sur le boutton "Sign up" du formulaire
+        await page.evaluate( () => {
+            Array
+                .from( document.querySelectorAll( 'ul.nav.pull-right li a' ) )
+                .filter( el => el.textContent === 'Sign Up' )[0].click();
+        });
+        // attendre que l'élément <body> soit chargé
+        await page.waitForSelector('body')
+        await page.screenshot({path: './tests/img/signUp.png'});
+        //on attent que l'élément "body" soit chargé        
+        const body = await page.$eval('body', e => e.innerHTML)
+        expect(body).toContain("Register")
+        await page.waitForSelector('input[name="username"]')
+        await page.waitForSelector('input[type="submit"]')
+        
+   },timeout)
+
 
 
     // cette fonction est lancée avant chaque test de cette

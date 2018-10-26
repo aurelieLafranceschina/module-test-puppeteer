@@ -8,7 +8,7 @@ describe("Shorten Anonymous", () => {
     test('basic shorten', async () => {
         await page.goto('http://polr.campus-grenoble.fr')
         await page.waitForSelector('.long-link-input')
-        await page.type('.long-link-input', 'https://www.google.com/search?source=hp&ei=QQbPW52GC9CRlwSHw46oAg&q=puppeteer+jest&oq=puppeteer+jest&gs_l=psy-ab.3...2441.6095.0.6926.0.0.0.0.0.0.0.0..0.0....0...1c.1.64.psy-ab..0.0.0....0.qKd5wLlrTYk');
+        await page.type('.long-link-input', 'https://campus-skills.meteorapp.com/ZgF5ABnGWQQ2hxfoR/skills');
         //await page.screenshot({path: './tests/img/shorten1.png'});
         await page.waitForSelector('#shorten')
         await page.$eval( '#shorten', el => el.click() );
